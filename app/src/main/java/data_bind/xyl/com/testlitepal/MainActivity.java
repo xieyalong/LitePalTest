@@ -7,12 +7,10 @@ import android.view.View;
 import com.alibaba.fastjson.JSONObject;
 
 import org.litepal.LitePal;
-import org.litepal.exceptions.DataSupportException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
 
 import data_bind.xyl.com.model.UserModel;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -33,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case  R.id.tv_find1:
+                find1();
+                break;
             case  R.id.tv_save:
                 save();
                 break;
@@ -50,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+    }
+    public  void find1(){
+        List<UserModel> list = LitePal.findAll(UserModel.class);
+        System.out.println(">]data="+ JSONObject.toJSONString(list));
     }
     public  void save(){
         UserModel model=new UserModel();
