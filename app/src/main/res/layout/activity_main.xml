@@ -120,6 +120,60 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_count1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="count1"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_count2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="count2"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_max1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="max1"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_max2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="max2"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_sum1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="sum1"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_sum2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="sum2"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

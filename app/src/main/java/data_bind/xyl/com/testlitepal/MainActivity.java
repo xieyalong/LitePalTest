@@ -36,11 +36,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_find2).setOnClickListener(this);
         findViewById(R.id.tv_find3).setOnClickListener(this);
         findViewById(R.id.tv_find4).setOnClickListener(this);
+
+        findViewById(R.id.tv_count1).setOnClickListener(this);
+        findViewById(R.id.tv_count2).setOnClickListener(this);
+        findViewById(R.id.tv_max1).setOnClickListener(this);
+        findViewById(R.id.tv_max2).setOnClickListener(this);
+        findViewById(R.id.tv_sum1).setOnClickListener(this);
+        findViewById(R.id.tv_sum2).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case  R.id.tv_count1:
+               qt1();
+                break;
+            case  R.id.tv_count2:
+                qt2();
+                break;
+            case  R.id.tv_max1:
+                qt3();
+                break;
+            case  R.id.tv_max2:
+                qt4();
+                break;
+            case  R.id.tv_sum1:
+                qt5();
+                break;
+            case  R.id.tv_sum2:
+                qt6();
+                break;
             case  R.id.tv_find1:
                 find1();
                 break;
@@ -72,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 update4();
                 break;
             case  R.id.tv_delete1:
-               delete2();
+                delete2();
                 break;
             case  R.id.tv_delete2:
                 delete3();
@@ -186,7 +211,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UserModel  userModel=LitePal.find(UserModel.class,6);
         userModel.delete();
     }
-
+    //数据总条数
+    public  void qt1(){
+        int count=LitePal.count(UserModel.class);
+        System.out.println(">]count="+count);
+    }
+    //根据条件查询数据总条数
+    public  void qt2(){
+        int count=LitePal.where("age>?","30").count(UserModel.class);
+        System.out.println(">]count="+count);
+    }
+    //查询最大的id
+    public  void qt3(){
+        int max=LitePal.max(UserModel.class,"id",Integer.TYPE);
+        System.out.println(">]max="+max);
+    }
+    //id小于30的最大值
+    public  void qt4(){
+        int max=LitePal.where("id<?","30").
+                max(UserModel.class,"id",Integer.TYPE);
+        System.out.println(">]max="+max);
+    }
+    //age的总和
+    public  void qt5(){
+        int sum=LitePal. sum(UserModel.class,"age",Integer.TYPE);
+        System.out.println(">]sum="+sum);
+    }
+    //age>30 id的总和
+    public  void qt6(){
+        int sum=LitePal.where("age>?","30").
+                sum(UserModel.class,"id",Integer.TYPE);
+        System.out.println(">]sum="+sum);
+    }
 }
 
 
