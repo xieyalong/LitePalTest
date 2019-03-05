@@ -11,7 +11,7 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         LitePal.initialize(this);
-        registerActivity();
+        registerActivity();////
     }
     public  void registerActivity(){
         registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
