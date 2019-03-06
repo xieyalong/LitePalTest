@@ -187,7 +187,7 @@
                 android:id="@+id/tv_test1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="插入10万条数据-模拟器耗时5秒"
+                android:text="插入10万条数据-模拟器耗时5-25秒，基本在15秒左右"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"
