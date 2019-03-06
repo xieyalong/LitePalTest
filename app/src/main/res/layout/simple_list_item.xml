@@ -33,7 +33,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:paddingLeft="6dip"
-        android:visibility="invisible"
+        android:text="查看数据"
         />
     <Button
         android:id="@+id/text_3"
@@ -42,5 +42,5 @@
         android:layout_weight="1"
         android:gravity="center"
         android:paddingLeft="6dip"
-        android:text="查看表详情"/>
+        android:text="查看表结构"/>
 </LinearLayout>

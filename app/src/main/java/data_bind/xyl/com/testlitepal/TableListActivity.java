@@ -108,6 +108,12 @@ public class TableListActivity extends AppCompatActivity {
 			}
 			TextView textView = (TextView) view.findViewById(R.id.text_1);
 			textView.setText("表名："+getItem(position));
+			view.findViewById(R.id.text_2).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					DataListActivity.actionStart(TableListActivity.this);
+				}
+			});
 			view.findViewById(R.id.text_3).setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {

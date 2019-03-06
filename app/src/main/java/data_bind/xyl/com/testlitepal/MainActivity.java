@@ -292,10 +292,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println(">]更新10万条数据-结束");
     }
     public  void test3(){
-        System.out.println(">]查询10万条数据-开始");
-        List<UserModel> list = LitePal.findAll(UserModel.class);
-        System.out.println(">]查询10万条数据-结束");
-        System.out.println(">]data="+JSONObject.toJSONString(list));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(">]查询"+LitePal.count(UserModel.class)+"条数据-开始");
+                List<UserModel> list = LitePal.findAll(UserModel.class);
+                System.out.println(">]查询"+LitePal.count(UserModel.class)+"万条数据-结束");
+                System.out.println(">]data="+JSONObject.toJSONString(list));
+            }
+        }).start();
+
     }
 }
 

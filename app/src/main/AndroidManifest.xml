@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".TableListActivity"/>
         <activity android:name=".TableStructureActivity"/>
+        <activity android:name=".DataListActivity" />
     </application>
 
 </manifest>
