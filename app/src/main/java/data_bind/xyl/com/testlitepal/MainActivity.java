@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_test1).setOnClickListener(this);
         findViewById(R.id.tv_test2).setOnClickListener(this);
         findViewById(R.id.tv_test3).setOnClickListener(this);
+        findViewById(R.id.tv_test2_update).setOnClickListener(this);
 
 
     }
@@ -122,6 +123,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.tv_test3:
                 test3();
                 break;
+            case  R.id.tv_test2_update:
+                test2_update();
+                break;
+
         }
     }
     public  void find1(){
@@ -277,6 +282,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UserModel userModel=new UserModel();
         userModel.setName("张三修改后");
         userModel.updateAll("id>0");
+        System.out.println(">]更新10万条数据-结束");
+    }
+    public  void test2_update(){
+        System.out.println(">]更新10万条数据-开始");
+        ContentValues cv=new ContentValues();
+        cv.put("name","张三修改后2");
+        LitePal.updateAll(UserModel.class,cv,"id>0");
         System.out.println(">]更新10万条数据-结束");
     }
     public  void test3(){
