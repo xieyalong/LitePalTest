@@ -52,7 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_test2_update).setOnClickListener(this);
         findViewById(R.id.tv_last).setOnClickListener(this);
         findViewById(R.id.tv_order).setOnClickListener(this);
+        findViewById(R.id.tv_order2).setOnClickListener(this);
+        findViewById(R.id.tv_order3).setOnClickListener(this);
 
+        findViewById(R.id.tv_first).setOnClickListener(this);
+        findViewById(R.id.tv_columns).setOnClickListener(this);
 
     }
 
@@ -134,6 +138,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.tv_order:
                 order();
                 break;
+            case  R.id.tv_order2:
+                order2();
+                break;
+            case  R.id.tv_order3:
+                order3();
+                break;
+            case  R.id.tv_first:
+                first();
+                break;
+            case  R.id.tv_columns:
+                find_columns();
+                break;
 
 
         }
@@ -172,7 +188,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         System.out.println(">]data="+ JSONObject.toJSONString(list));
     }
+    public  void find_last(){
+        UserModel model=LitePal.findLast(UserModel.class);
+        System.out.println(">]user="+JSONObject.toJSONString(model));
+    }
+    //查询 id<800000 倒序 前3条
+    public  void order(){
+        System.out.println(">]order");
+        List<UserModel> list=
+                LitePal.where("id<?  order by  id desc limit 3","800000")
+                .find(UserModel.class);
+        System.out.println(">]list="+JSONObject.toJSONString(list));
+    }
+    //查询 id<800000 倒序 前3条
+    public  void order2(){
+        System.out.println(">]order");
+        List<UserModel> list=LitePal.where("id<? ","800000")
+                .order("id desc limit 3").find(UserModel.class);
+        System.out.println(">]list="+JSONObject.toJSONString(list));
+    }
+    //查询 id<800000 倒序 前3条
+    public  void order3(){
+        System.out.println(">]order");
+        List<UserModel> list=LitePal.where("id<? ","800000")
+                .order("id desc").limit(2).find(UserModel.class);
+        System.out.println(">]list="+JSONObject.toJSONString(list));
+    }
+    public  void first(){
+        UserModel userModel=LitePal.findFirst(UserModel.class);
+        System.out.println(">] user="+JSONObject.toJSONString(userModel));
+    }
 
+    public  void find_columns(){
+       List<UserModel> list = LitePal.select("name,age").where("id=?","700010").find(UserModel.class);
+        System.out.println(">] user="+JSONObject.toJSONString(list));
+    }
 
 
     public  void save(){
@@ -312,15 +362,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }).start();
 
     }
-    public  void find_last(){
-        UserModel model=LitePal.findLast(UserModel.class);
-        System.out.println(">]user="+JSONObject.toJSONString(model));
-    }
-    public  void order(){
-        System.out.println(">]order");
-       List<UserModel> list= LitePal.where("id<?  order by  id desc limit 3","800000").find(UserModel.class);
-        System.out.println(">]list="+JSONObject.toJSONString(list));
-    }
+
 }
 
 

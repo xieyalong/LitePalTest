@@ -46,13 +46,68 @@
                 android:gravity="center"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
+
             <TextView
                 android:id="@+id/tv_find4"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:text="findBySQL， 查询多个"
+                android:background="@color/colorAccent"
                 android:gravity="center"
+                android:text="findBySQL， 查询多个"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/tv_last"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="最后一条数据LitePal.findLast"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_first"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="第一条数据LitePal.findFirst"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="order，查询倒序最后3条"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_order2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="order方法，查询倒序最后3条"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_order3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="order,limit方法，查询倒序最后3条"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_columns"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="查询单个列 咱时不知"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
             <TextView
@@ -219,24 +274,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
-            <TextView
-                android:id="@+id/tv_last"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="最后一条数据LitePal.findLast"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorAccent"
-                android:textColor="@android:color/black"/>
-            <TextView
-                android:id="@+id/tv_order"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="order，查询倒序最后3条"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorAccent"
-                android:textColor="@android:color/black"/>
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
