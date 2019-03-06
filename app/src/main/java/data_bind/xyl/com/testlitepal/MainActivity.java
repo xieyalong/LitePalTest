@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<UserModel> list = LitePal.findAll(UserModel.class);
         System.out.println(">]data="+ JSONObject.toJSONString(list));
     }
+    //异步添加
     public  void saveAsync(){
         UserModel model=new UserModel();
         model.setAge(33);
