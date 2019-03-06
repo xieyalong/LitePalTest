@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public  void find4(){
         List<Map<String,Object>> list=new ArrayList<>();
-        Cursor cursor=LitePal.findBySQL("select * from usermodel where age=? and name=?","40","谢亚龙");
+        Cursor cursor=LitePal.findBySQL("select * from usermodel where id=? or id=?","700011","700010");
         int cols_count=cursor.getColumnCount();
         while (cursor.moveToNext()) {//遍历每一条
             Map<String, Object> map = new HashMap();
@@ -186,8 +186,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //获取列值
                 String value = cursor.getString(cursor.getColumnIndex(key));
                 map.put(key, value);
-                list.add(map);
             }
+            list.add(map);
         }
         System.out.println(">]data="+ JSONObject.toJSONString(list));
     }
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println(">]order");
         List<UserModel> list=
                 LitePal.where("id<?  order by  id desc limit 3","800000")
-                .find(UserModel.class);
+                        .find(UserModel.class);
         System.out.println(">]list="+JSONObject.toJSONString(list));
     }
     //查询 id<800000 倒序 前3条
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public  void find_columns(){
-       List<UserModel> list = LitePal.select("name,age").where("id=?","700010").find(UserModel.class);
+        List<UserModel> list = LitePal.select("name,age").where("id=?","700010").find(UserModel.class);
         System.out.println(">] user="+JSONObject.toJSONString(list));
     }
 
