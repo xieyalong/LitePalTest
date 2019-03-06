@@ -43,11 +43,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_max2).setOnClickListener(this);
         findViewById(R.id.tv_sum1).setOnClickListener(this);
         findViewById(R.id.tv_sum2).setOnClickListener(this);
+
+        findViewById(R.id.tv_table_list).setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case  R.id.tv_table_list:
+                TableListActivity.actionStart(this);
+                break;
             case  R.id.tv_count1:
                qt1();
                 break;
