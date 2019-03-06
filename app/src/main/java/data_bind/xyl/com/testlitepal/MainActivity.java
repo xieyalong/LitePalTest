@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_test2).setOnClickListener(this);
         findViewById(R.id.tv_test3).setOnClickListener(this);
         findViewById(R.id.tv_test2_update).setOnClickListener(this);
+        findViewById(R.id.tv_last).setOnClickListener(this);
+        findViewById(R.id.tv_order).setOnClickListener(this);
 
 
     }
@@ -126,6 +128,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.tv_test2_update:
                 test2_update();
                 break;
+            case  R.id.tv_last:
+                find_last();
+                break;
+            case  R.id.tv_order:
+                order();
+                break;
+
 
         }
     }
@@ -302,6 +311,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }).start();
 
+    }
+    public  void find_last(){
+        UserModel model=LitePal.findLast(UserModel.class);
+        System.out.println(">]user="+JSONObject.toJSONString(model));
+    }
+    public  void order(){
+        System.out.println(">]order");
+       List<UserModel> list= LitePal.where("id<?  order by  id desc limit 3","800000").find(UserModel.class);
+        System.out.println(">]list="+JSONObject.toJSONString(list));
     }
 }
 

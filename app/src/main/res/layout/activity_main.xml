@@ -219,6 +219,25 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_last"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="最后一条数据LitePal.findLast"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="order，查询倒序最后3条"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
