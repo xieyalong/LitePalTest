@@ -20,14 +20,24 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+#使用 LitePal 后混淆出错
+#在 proguard-rules.pro 中忽略 LitePal。
+#-keep class org.litepal.** { *; }
+#-keep class * extends org.litepal.crud.DataSupport { *; }
+#-keep class * extends org.litepal.crud.LitePalSupport { *; }
+#--------------------------------
+
 -keep class org.litepal.** {
     *;
 }
-
+#老的超级类
 -keep class * extends org.litepal.crud.DataSupport {
     *;
 }
-
+#新的超级类
 -keep class * extends org.litepal.crud.LitePalSupport {
     *;
 }
+
+
+
