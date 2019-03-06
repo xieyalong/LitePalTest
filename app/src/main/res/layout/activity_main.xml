@@ -175,10 +175,19 @@
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
             <TextView
-                android:id="@+id/tv_sum2"
+            android:id="@+id/tv_sum2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="sum2"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_test1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="sum2"
+                android:text="插入10万条数据-模拟器耗时5秒"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"

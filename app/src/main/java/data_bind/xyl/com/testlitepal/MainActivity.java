@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.tv_table_list).setOnClickListener(this);
 
+        findViewById(R.id.tv_test1).setOnClickListener(this);
+
+
     }
 
     @Override
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TableListActivity.actionStart(this);
                 break;
             case  R.id.tv_count1:
-               qt1();
+                qt1();
                 break;
             case  R.id.tv_count2:
                 qt2();
@@ -108,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.tv_delete2:
                 delete3();
                 break;
+            case  R.id.tv_test1:
+                test1();
+                break;
+
         }
     }
     public  void find1(){
@@ -248,6 +255,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int sum=LitePal.where("age>?","30").
                 sum(UserModel.class,"id",Integer.TYPE);
         System.out.println(">]sum="+sum);
+    }
+    public  void test1(){
+        System.out.println(">]插入10万条数据-开始");
+        List<UserModel> list=new ArrayList<>();
+        for (int i = 0; i <100000 ; i++) {
+            list.add(new UserModel("张三"+i,i));
+        }
+        LitePal.saveAll(list);
+        System.out.println(">]插入10万条数据-结束");
     }
 }
 

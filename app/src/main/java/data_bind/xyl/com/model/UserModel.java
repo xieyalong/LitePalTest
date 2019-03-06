@@ -4,6 +4,13 @@ import org.litepal.crud.LitePalSupport;
 
 
 public class UserModel extends LitePalSupport {
+    public UserModel() {
+    }
+    public UserModel(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     //id自动增长 所有要给get set 方法
     private long id;
     private String name;
