@@ -9,6 +9,8 @@ import android.view.View;
 import com.alibaba.fastjson.JSONObject;
 
 import org.litepal.LitePal;
+import org.litepal.crud.callback.FindMultiCallback;
+import org.litepal.crud.callback.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.tv_first).setOnClickListener(this);
         findViewById(R.id.tv_columns).setOnClickListener(this);
+        findViewById(R.id.tv_find_async).setOnClickListener(this);
+        findViewById(R.id.saveAsync).setOnClickListener(this);
 
     }
 
@@ -153,6 +157,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.tv_columns:
                 find_columns();
                 break;
+            case  R.id.tv_find_async:
+                findAsync();
+                break;
+            case  R.id.saveAsync:
+                saveAsync();
+                break;
 
 
         }
@@ -226,7 +236,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<UserModel> list = LitePal.select("name,age").where("id=?","700010").find(UserModel.class);
         System.out.println(">] user="+JSONObject.toJSONString(list));
     }
-
+    //异步查询
+    public  void findAsync(){
+        LitePal.where("id<100").findAsync(UserModel.class)
+                .listen(new FindMultiCallback<UserModel>() {
+            @Override
+            public void onFinish(List<UserModel> list) {
+                System.out.println(">] user="+JSONObject.toJSONString(list));
+            }
+        });
+    }
 
     public  void save(){
         UserModel model=new UserModel();
@@ -235,6 +254,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         model.save();
         List<UserModel> list = LitePal.findAll(UserModel.class);
         System.out.println(">]data="+ JSONObject.toJSONString(list));
+    }
+    public  void saveAsync(){
+        UserModel model=new UserModel();
+        model.setAge(33);
+        model.setName("aaaa");
+        model.saveAsync().listen(new SaveCallback() {
+            @Override
+            public void onFinish(boolean success) {
+                System.out.println(">]添加="+success);
+                UserModel model=LitePal.findLast(UserModel.class);
+                System.out.println(">]user="+ JSONObject.toJSONString(model));
+            }
+        });
+
     }
     public  void saveALL(){
         List<UserModel> userModels=new ArrayList<>();

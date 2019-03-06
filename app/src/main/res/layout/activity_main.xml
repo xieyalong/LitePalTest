@@ -38,6 +38,16 @@
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
             <TextView
+                android:id="@+id/tv_find_async"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:text="findAsync，异步查询所有"
+                android:gravity="center"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+
+            <TextView
                 android:id="@+id/tv_find3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -119,6 +129,16 @@
                 android:gravity="center"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/saveAsync"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:text="添加异步操作"
+                android:gravity="center"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
+
             <TextView
                 android:id="@+id/tv_save_all"
                 android:layout_width="match_parent"
