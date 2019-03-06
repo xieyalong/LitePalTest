@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_table_list).setOnClickListener(this);
 
         findViewById(R.id.tv_test1).setOnClickListener(this);
+        findViewById(R.id.tv_test2).setOnClickListener(this);
+        findViewById(R.id.tv_test3).setOnClickListener(this);
 
 
     }
@@ -114,7 +116,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.tv_test1:
                 test1();
                 break;
-
+            case  R.id.tv_test2:
+                test2();
+                break;
+            case  R.id.tv_test3:
+                test3();
+                break;
         }
     }
     public  void find1(){
@@ -264,6 +271,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         LitePal.saveAll(list);
         System.out.println(">]插入10万条数据-结束");
+    }
+    public  void test2(){
+        System.out.println(">]更新10万条数据-开始");
+        UserModel userModel=new UserModel();
+        userModel.setName("张三修改后");
+        userModel.updateAll("id>0");
+        System.out.println(">]更新10万条数据-结束");
+    }
+    public  void test3(){
+        System.out.println(">]查询10万条数据-开始");
+        List<UserModel> list = LitePal.findAll(UserModel.class);
+        System.out.println(">]查询10万条数据-结束");
+        System.out.println(">]data="+JSONObject.toJSONString(list));
     }
 }
 
