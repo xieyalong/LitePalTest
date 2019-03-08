@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -16,18 +17,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 import data_bind.xyl.com.model.UserModel;
+/**
+ * 切忌 要加混淆
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
+TextView tv_content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /**
-         * 切忌 要加混淆
-         */
+
+        tv_content=findViewById(R.id.tv_content);
         findViewById(R.id.tv_save).setOnClickListener(this);
         findViewById(R.id.tv_save_all).setOnClickListener(this);
         findViewById(R.id.tv_update1).setOnClickListener(this);
@@ -168,21 +169,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     public  void find1(){
+        //查询最大的id
+        int id=LitePal.max(UserModel.class,"id",Integer.TYPE);
         //根据id查询1条
-        UserModel user = LitePal.find(UserModel.class,9);
-        System.out.println(">]data="+ JSONObject.toJSONString(user));
+        UserModel user = LitePal.find(UserModel.class,id);
+        String str=JSONObject.toJSONString(user);
+        System.out.println(">] data="+str);
+        tv_content.setText(">] data="+str);
     }
     public  void find2(){
         //查询所有
         List<UserModel> list = LitePal.findAll(UserModel.class);
-        System.out.println(">]data="+ JSONObject.toJSONString(list));
+        String str=JSONObject.toJSONString(list);
+        System.out.println(">] list="+str);
+        tv_content.setText(">] list="+str);
     }
 
     public  void find3(){
         //多个条件 查询多个
         List<UserModel> list= LitePal.where("age=? and name=?","40","谢亚龙")
                 .find(UserModel.class);
-        System.out.println(">]data="+ JSONObject.toJSONString(list));
+        String str=JSONObject.toJSONString(list);
+        System.out.println(">] list="+str);
+        tv_content.setText(">] list="+str);
     }
     public  void find4(){
         List<Map<String,Object>> list=new ArrayList<>();
@@ -199,11 +208,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             list.add(map);
         }
-        System.out.println(">]data="+ JSONObject.toJSONString(list));
+        String str=JSONObject.toJSONString(list);
+        System.out.println(">] list="+str);
+        tv_content.setText(">] list="+str);
     }
     public  void find_last(){
         UserModel model=LitePal.findLast(UserModel.class);
-        System.out.println(">]user="+JSONObject.toJSONString(model));
+        String str=JSONObject.toJSONString(model);
+        System.out.println(">] user="+str);
+        tv_content.setText(">] user="+str);
     }
     //查询 id<800000 倒序 前3条
     public  void order(){
@@ -211,30 +224,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<UserModel> list=
                 LitePal.where("id<?  order by  id desc limit 3","800000")
                         .find(UserModel.class);
-        System.out.println(">]list="+JSONObject.toJSONString(list));
+        String str=JSONObject.toJSONString(list);
+        System.out.println(">] list="+str);
+        tv_content.setText(">] list="+str);
     }
     //查询 id<800000 倒序 前3条
     public  void order2(){
         System.out.println(">]order");
         List<UserModel> list=LitePal.where("id<? ","800000")
                 .order("id desc limit 3").find(UserModel.class);
-        System.out.println(">]list="+JSONObject.toJSONString(list));
+        String str=JSONObject.toJSONString(list);
+        System.out.println(">] list="+str);
+        tv_content.setText(">] list="+str);
     }
     //查询 id<800000 倒序 前3条
     public  void order3(){
         System.out.println(">]order");
         List<UserModel> list=LitePal.where("id<? ","800000")
                 .order("id desc").limit(2).find(UserModel.class);
-        System.out.println(">]list="+JSONObject.toJSONString(list));
+        String str=JSONObject.toJSONString(list);
+        System.out.println(">] list="+str);
+        tv_content.setText(">] list="+str);
     }
     public  void first(){
         UserModel userModel=LitePal.findFirst(UserModel.class);
-        System.out.println(">] user="+JSONObject.toJSONString(userModel));
+        String str=JSONObject.toJSONString(userModel);
+        System.out.println(">] user="+str);
+        tv_content.setText(">] user="+str);
     }
 
     public  void find_columns(){
         List<UserModel> list = LitePal.select("name,age").where("id=?","700010").find(UserModel.class);
-        System.out.println(">] user="+JSONObject.toJSONString(list));
+        String str=JSONObject.toJSONString(list);
+        System.out.println(">] user="+str);
+        tv_content.setText(">] user="+str);
     }
     //异步查询
     public  void findAsync(){
@@ -242,7 +265,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .listen(new FindMultiCallback<UserModel>() {
             @Override
             public void onFinish(List<UserModel> list) {
-                System.out.println(">] user="+JSONObject.toJSONString(list));
+                String str=JSONObject.toJSONString(list);
+                System.out.println(">] user="+str);
+                tv_content.setText(">] user="+str);
             }
         });
     }
@@ -251,9 +276,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UserModel model=new UserModel();
         model.setAge(40);
         model.setName("谢亚龙");
-        model.save();
+       boolean boo= model.save();
         List<UserModel> list = LitePal.findAll(UserModel.class);
         System.out.println(">]data="+ JSONObject.toJSONString(list));
+        tv_content.setText(">]update="+(boo==true?"添加成功":"添加失败"));
     }
     //异步添加
     public  void saveAsync(){
@@ -263,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         model.saveAsync().listen(new SaveCallback() {
             @Override
             public void onFinish(boolean success) {
+                tv_content.setText(">]异步添加成功");
                 System.out.println(">]添加="+success);
                 UserModel model=LitePal.findLast(UserModel.class);
                 System.out.println(">]user="+ JSONObject.toJSONString(model));
@@ -282,8 +309,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         model2.save();
         userModels.add(model);
         userModels.add(model2);
-
-        LitePal.saveAll(userModels);
+//        LitePal.saveAll(userModels);异步
+        //同步
+        LitePal.saveAllAsync(userModels).listen(new SaveCallback() {
+            @Override
+            public void onFinish(boolean success) {
+                tv_content.setText(">]saveAllAsync="+success);
+            }
+        });
     }
 
     public  void update(){
@@ -291,14 +324,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UserModel userModel=LitePal.find(UserModel.class,1);
         userModel.setName("李四");
         userModel.setAge(4);
-        userModel.save();
+     boolean boo=userModel.save();
+        tv_content.setText(">]update="+(boo==true?"添加成功":"添加失败"));
     }
     public  void update2(){
         UserModel userModel=new UserModel();
         userModel.setName("张三");
         userModel.setAge(40);
         //根据id更新
-        userModel.update(3);
+      int i=  userModel.update(3);
+        tv_content.setText(">]update="+(i>0?"更新成功":"更新失败"));
     }
 
     public  void update3(){
@@ -307,7 +342,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         userModel.setName("张三2");
         userModel.setAge(5);
         //updateAll(条件) conditions=代表sql语句WHERE的部分
-        userModel.updateAll("id=1 or id=3");
+       int i= userModel.updateAll("id=1 or id=3");
+        tv_content.setText(">]update="+(i>0?"更新成功":"更新失败"));
     }
     public  void update4(){
         //更新多条
@@ -315,9 +351,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cv.put("name","李四");
         cv.put("age",15);
 //        updateAll("表",列和值，条件)
-        LitePal.updateAll(UserModel.class,cv,"id>0");
+       int i=LitePal.updateAll(UserModel.class,cv,"id>0");
         //根据id跟新一条
 //        LitePal.update(UserModel.class,cv,1);
+        tv_content.setText(">]update="+(i>0?"更新成功":"更新失败"));
     }
     public void delete1(){
         //删除
@@ -336,33 +373,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public  void qt1(){
         int count=LitePal.count(UserModel.class);
         System.out.println(">]count="+count);
+        tv_content.setText(">]count="+count);
     }
     //根据条件查询数据总条数
     public  void qt2(){
         int count=LitePal.where("age>?","30").count(UserModel.class);
         System.out.println(">]count="+count);
+        tv_content.setText(">]count="+count);
     }
     //查询最大的id
     public  void qt3(){
         int max=LitePal.max(UserModel.class,"id",Integer.TYPE);
         System.out.println(">]max="+max);
+        tv_content.setText(">]max="+max);
     }
     //id小于30的最大值
     public  void qt4(){
         int max=LitePal.where("id<?","30").
                 max(UserModel.class,"id",Integer.TYPE);
         System.out.println(">]max="+max);
+        tv_content.setText(">]max="+max);
     }
     //age的总和
     public  void qt5(){
         int sum=LitePal. sum(UserModel.class,"age",Integer.TYPE);
         System.out.println(">]sum="+sum);
+        tv_content.setText(">]sum="+sum);
     }
     //age>30 id的总和
     public  void qt6(){
         int sum=LitePal.where("age>?","30").
                 sum(UserModel.class,"id",Integer.TYPE);
         System.out.println(">]sum="+sum);
+        tv_content.setText(">]sum="+sum);
     }
     public  void test1(){
         System.out.println(">]插入10万条数据-开始");
