@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -22,13 +24,14 @@ import data_bind.xyl.com.model.UserModel;
  * 切忌 要加混淆
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-TextView tv_content;
+    TextView tv_content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         tv_content=findViewById(R.id.tv_content);
+        tv_content.setMovementMethod(ScrollingMovementMethod.getInstance());
         findViewById(R.id.tv_save).setOnClickListener(this);
         findViewById(R.id.tv_save_all).setOnClickListener(this);
         findViewById(R.id.tv_update1).setOnClickListener(this);
@@ -179,10 +182,26 @@ TextView tv_content;
     }
     public  void find2(){
         //查询所有
-        List<UserModel> list = LitePal.findAll(UserModel.class);
-        String str=JSONObject.toJSONString(list);
-        System.out.println(">] list="+str);
-        tv_content.setText(">] list="+str);
+//        List<UserModel> list = LitePal.findAll(UserModel.class); 同步
+        //异步
+        LitePal.findAllAsync(UserModel.class).listen(new FindMultiCallback<UserModel>() {
+            @Override
+            public void onFinish(List<UserModel> list) {
+                if (null==list||0==list.size()){
+                    Toast.makeText(MainActivity.this,"没有数据",Toast.LENGTH_SHORT).show();
+                }else if (list.size()>101){
+                    List<UserModel> models=list.subList(list.size()-100,list.size());
+                    String str=JSONObject.toJSONString(models);
+                    System.out.println(">] list="+str);
+                    tv_content.setText(">] list="+str);
+                }else{
+                    String str=JSONObject.toJSONString(list);
+                    System.out.println(">] list="+str);
+                    tv_content.setText(">] list="+str);
+                }
+            }
+        });
+
     }
 
     public  void find3(){
@@ -263,20 +282,20 @@ TextView tv_content;
     public  void findAsync(){
         LitePal.where("id<100").findAsync(UserModel.class)
                 .listen(new FindMultiCallback<UserModel>() {
-            @Override
-            public void onFinish(List<UserModel> list) {
-                String str=JSONObject.toJSONString(list);
-                System.out.println(">] user="+str);
-                tv_content.setText(">] user="+str);
-            }
-        });
+                    @Override
+                    public void onFinish(List<UserModel> list) {
+                        String str=JSONObject.toJSONString(list);
+                        System.out.println(">] user="+str);
+                        tv_content.setText(">] user="+str);
+                    }
+                });
     }
 
     public  void save(){
         UserModel model=new UserModel();
         model.setAge(40);
         model.setName("谢亚龙");
-       boolean boo= model.save();
+        boolean boo= model.save();
         List<UserModel> list = LitePal.findAll(UserModel.class);
         System.out.println(">]data="+ JSONObject.toJSONString(list));
         tv_content.setText(">]update="+(boo==true?"添加成功":"添加失败"));
@@ -324,7 +343,7 @@ TextView tv_content;
         UserModel userModel=LitePal.find(UserModel.class,1);
         userModel.setName("李四");
         userModel.setAge(4);
-     boolean boo=userModel.save();
+        boolean boo=userModel.save();
         tv_content.setText(">]update="+(boo==true?"添加成功":"添加失败"));
     }
     public  void update2(){
@@ -332,7 +351,7 @@ TextView tv_content;
         userModel.setName("张三");
         userModel.setAge(40);
         //根据id更新
-      int i=  userModel.update(3);
+        int i=  userModel.update(3);
         tv_content.setText(">]update="+(i>0?"更新成功":"更新失败"));
     }
 
@@ -342,7 +361,7 @@ TextView tv_content;
         userModel.setName("张三2");
         userModel.setAge(5);
         //updateAll(条件) conditions=代表sql语句WHERE的部分
-       int i= userModel.updateAll("id=1 or id=3");
+        int i= userModel.updateAll("id=1 or id=3");
         tv_content.setText(">]update="+(i>0?"更新成功":"更新失败"));
     }
     public  void update4(){
@@ -351,7 +370,7 @@ TextView tv_content;
         cv.put("name","李四");
         cv.put("age",15);
 //        updateAll("表",列和值，条件)
-       int i=LitePal.updateAll(UserModel.class,cv,"id>0");
+        int i=LitePal.updateAll(UserModel.class,cv,"id>0");
         //根据id跟新一条
 //        LitePal.update(UserModel.class,cv,1);
         tv_content.setText(">]update="+(i>0?"更新成功":"更新失败"));
