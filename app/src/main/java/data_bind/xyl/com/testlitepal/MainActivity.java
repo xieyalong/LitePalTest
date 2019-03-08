@@ -14,6 +14,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
 import org.litepal.crud.callback.SaveCallback;
+import org.litepal.tablemanager.Connector;
+import org.litepal.util.DBUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_columns).setOnClickListener(this);
         findViewById(R.id.tv_find_async).setOnClickListener(this);
         findViewById(R.id.saveAsync).setOnClickListener(this);
+        findViewById(R.id.db_info).setOnClickListener(this);
 
     }
 
@@ -167,7 +170,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.saveAsync:
                 saveAsync();
                 break;
-
+            case  R.id.db_info:
+               dbinfo();
+                break;
 
         }
     }
@@ -459,7 +464,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
     }
-
+    public  void dbinfo(){
+        //输出 /storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db
+        System.out.println(">]LitePal.getDatabase().getPath()="+LitePal.getDatabase().getPath());
+        //输出 1
+        System.out.println(">]LitePal.getDatabase().getVersion()="+LitePal.getDatabase().getVersion());
+        //输出 [{"first":"main","second":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db"}]
+        System.out.println(">]LitePal.getDatabase().getAttachedDbs()="+JSONObject.toJSONString(LitePal.getDatabase().getAttachedDbs()));
+      //{"attachedDbs":[{"first":"main","second":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db"}],"databaseIntegrityOk":true,"dbLockedByCurrentThread":false,"dbLockedByOtherThreads":false,"inMemoryDatabase":false,"maximumSize":4398046507008,"open":true,"pageSize":4096,"path":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db","readOnly":false,"syncedTables":{},"version":1,"writeAheadLoggingEnabled":false}
+//        {
+//            "attachedDbs":[
+//            {
+//                "first":"main",
+//                    "second":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db"
+//            }
+//    ],
+//            "databaseIntegrityOk":true,
+//                "dbLockedByCurrentThread":false,
+//                "dbLockedByOtherThreads":false,
+//                "inMemoryDatabase":false,
+//                "maximumSize":4398046507008,
+//                "open":true,
+//                "pageSize":4096,
+//                "path":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db",
+//                "readOnly":false,
+//                "syncedTables":{
+//
+//        },
+//            "version":1,
+//                "writeAheadLoggingEnabled":false
+//        }
+        System.out.println(">]LitePal.getDatabase()="+JSONObject.toJSONString(LitePal.getDatabase()));
+        //["android_metadata","table_schema","sqlite_sequence","usermodel"]
+        System.out.println(">]tables="+JSONObject.toJSONString(DBUtility.findAllTableNames(Connector.getDatabase())));
+       //输出UserModel
+        System.out.println(">]getTableNameByClassName="+JSONObject.toJSONString(DBUtility.getTableNameByClassName("data_bind.xyl.com.model.UserModel")));
+    }
 }
 
 
