@@ -495,7 +495,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                "writeAheadLoggingEnabled":false
 //        }
         System.out.println(">]LitePal.getDatabase()="+JSONObject.toJSONString(LitePal.getDatabase()));
-        //["android_metadata","table_schema","sqlite_sequence","usermodel"]
+        //获取表名 ["android_metadata","table_schema","sqlite_sequence","usermodel"]
         System.out.println(">]tables="+JSONObject.toJSONString(DBUtility.findAllTableNames(Connector.getDatabase())));
        //输出UserModel
         System.out.println(">]getTableNameByClassName="+JSONObject.toJSONString(DBUtility.getTableNameByClassName("data_bind.xyl.com.model.UserModel")));
