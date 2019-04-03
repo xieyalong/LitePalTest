@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_find_async).setOnClickListener(this);
         findViewById(R.id.saveAsync).setOnClickListener(this);
         findViewById(R.id.db_info).setOnClickListener(this);
+        findViewById(R.id.create_table).setOnClickListener(this);
 
     }
 
@@ -171,8 +172,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 saveAsync();
                 break;
             case  R.id.db_info:
-               dbinfo();
+                dbinfo();
                 break;
+            case  R.id.create_table:
+                create_table();
+                break;
+
 
         }
     }
@@ -471,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println(">]LitePal.getDatabase().getVersion()="+LitePal.getDatabase().getVersion());
         //输出 [{"first":"main","second":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db"}]
         System.out.println(">]LitePal.getDatabase().getAttachedDbs()="+JSONObject.toJSONString(LitePal.getDatabase().getAttachedDbs()));
-      //{"attachedDbs":[{"first":"main","second":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db"}],"databaseIntegrityOk":true,"dbLockedByCurrentThread":false,"dbLockedByOtherThreads":false,"inMemoryDatabase":false,"maximumSize":4398046507008,"open":true,"pageSize":4096,"path":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db","readOnly":false,"syncedTables":{},"version":1,"writeAheadLoggingEnabled":false}
+        //{"attachedDbs":[{"first":"main","second":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db"}],"databaseIntegrityOk":true,"dbLockedByCurrentThread":false,"dbLockedByOtherThreads":false,"inMemoryDatabase":false,"maximumSize":4398046507008,"open":true,"pageSize":4096,"path":"/storage/emulated/0/Android/data/data_bind.xyl.com.testlitepal/files/databases/xyldb.db","readOnly":false,"syncedTables":{},"version":1,"writeAheadLoggingEnabled":false}
 //        {
 //            "attachedDbs":[
 //            {
@@ -497,8 +502,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println(">]LitePal.getDatabase()="+JSONObject.toJSONString(LitePal.getDatabase()));
         //获取表名 ["android_metadata","table_schema","sqlite_sequence","usermodel"]
         System.out.println(">]tables="+JSONObject.toJSONString(DBUtility.findAllTableNames(Connector.getDatabase())));
-       //输出UserModel
+        //输出UserModel
         System.out.println(">]getTableNameByClassName="+JSONObject.toJSONString(DBUtility.getTableNameByClassName("data_bind.xyl.com.model.UserModel")));
+        tv_content.setText(JSONObject.toJSONString(DBUtility.findAllTableNames(Connector.getDatabase())));
+    }
+
+    public  void  create_table(){
+
+        //primary key autoincrement 自增长
+        String sql="create table if not exists hs_user2(id integer primary key autoincrement,u_name text,u_date text)";
+        LitePal.getDatabase().execSQL(sql);
+
+        sql = "select count(*) as c from sqlite_master where type ='table' and name ='hs_user';";
+        Cursor cursor = LitePal.getDatabase().rawQuery(sql, null);
+        if(cursor.moveToNext()){
+            int count = cursor.getInt(0);
+            if(count>0){
+                tv_content.setText("存在或者创建成功");
+                System.out.println(">]count="+count);
+                return;
+            }
+        }
     }
 }
 

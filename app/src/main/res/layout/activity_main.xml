@@ -310,7 +310,15 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/black"/>
-
+            <TextView
+                android:id="@+id/create_table"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="创建表"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
