@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.saveAsync).setOnClickListener(this);
         findViewById(R.id.db_info).setOnClickListener(this);
         findViewById(R.id.create_table).setOnClickListener(this);
+        findViewById(R.id.delete_table).setOnClickListener(this);
+        findViewById(R.id.add_column).setOnClickListener(this);
 
     }
 
@@ -177,7 +179,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case  R.id.create_table:
                 create_table();
                 break;
-
+            case  R.id.delete_table:
+                delete_table();
+                break;
+            case  R.id.add_column:
+                add_column();
+                break;
 
         }
     }
@@ -524,6 +531,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+    public  void delete_table(){
+        String sql="DROP TABLE hs_user2;";
+        LitePal.getDatabase().execSQL(sql);
+        sql = "select count(*) as c from sqlite_master where type ='table' and name ='hs_user2';";
+        Cursor cursor = LitePal.getDatabase().rawQuery(sql, null);
+        if(cursor.moveToNext()){
+            int count = cursor.getInt(0);
+            if(count<=0){
+                tv_content.setText("删除成功");
+                return;
+            }
+        }
+    }
+    public  void add_column(){
+        String sql="alter table hs_user add age integer";
+        LitePal.getDatabase().execSQL(sql);
+    }
+
 }
 
 
