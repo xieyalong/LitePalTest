@@ -36,6 +36,9 @@ import org.litepal.util.DBUtility;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 表结构
+ */
 public class TableStructureActivity extends AppCompatActivity {
 
 	public static final String TABLE_NAME = "table_name";

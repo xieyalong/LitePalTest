@@ -36,6 +36,9 @@ import org.litepal.util.DBUtility;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 表 列表
+ */
 public class TableListActivity extends AppCompatActivity {
 
 	private ProgressBar mProgressBar;

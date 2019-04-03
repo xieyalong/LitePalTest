@@ -22,6 +22,9 @@ import java.util.List;
 
 import data_bind.xyl.com.model.UserModel;
 
+/**
+ * 表数据
+ */
 public class DataListActivity extends Activity {
 
     private ListView mDataListView;
