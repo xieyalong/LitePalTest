@@ -3,10 +3,11 @@ package data_bind.xyl.com;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.multidex.MultiDexApplication;
 
 import org.litepal.LitePal;
 
-public class APP extends Application {
+public class APP extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();

@@ -309,13 +309,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public  void save(){
-        UserModel model=new UserModel();
-        model.setAge(40);
-        model.setName("谢亚龙");
-        boolean boo= model.save();
-        List<UserModel> list = LitePal.findAll(UserModel.class);
-        System.out.println(">]data="+ JSONObject.toJSONString(list));
-        tv_content.setText(">]update="+(boo==true?"添加成功":"添加失败"));
+        try{
+            UserModel model=new UserModel();
+            model.setAge(40);
+            model.setName("谢亚龙");
+            boolean boo= model.save();
+            List<UserModel> list = LitePal.findAll(UserModel.class);
+            System.out.println(">]data="+ JSONObject.toJSONString(list));
+            tv_content.setText(">]update="+(boo==true?"添加成功":"添加失败"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
     //异步添加
     public  void saveAsync(){

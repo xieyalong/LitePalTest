@@ -19,7 +19,6 @@
     -->
     <list>
         <mapping class="data_bind.xyl.com.model.UserModel" />
-        <mapping class="data_bind.xyl.com.model.UserModel2" />
         <!--  <mapping class="com.litepaltest.model.Classroom" />
               <mapping class="com.litepaltest.model.Teacher" />
               <mapping class="com.litepaltest.model.IdCard" />
