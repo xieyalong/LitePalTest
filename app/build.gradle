@@ -31,4 +31,5 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.2.49'
     implementation 'com.alibaba:fastjson:1.1.70.android'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'org.apache.commons.io:commonsIO:2.5.0'
 }

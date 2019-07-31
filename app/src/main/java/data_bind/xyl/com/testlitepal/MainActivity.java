@@ -1,22 +1,33 @@
 package data_bind.xyl.com.testlitepal;
 
+import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 
+import org.apache.commons.io.FileUtils;
 import org.litepal.LitePal;
 import org.litepal.crud.callback.FindMultiCallback;
 import org.litepal.crud.callback.SaveCallback;
 import org.litepal.tablemanager.Connector;
 import org.litepal.util.DBUtility;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,12 +85,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.create_table).setOnClickListener(this);
         findViewById(R.id.delete_table).setOnClickListener(this);
         findViewById(R.id.add_column).setOnClickListener(this);
+        findViewById(R.id.tv_root).setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case  R.id.tv_root:
+                root();
+                break;
             case  R.id.tv_table_list:
                 TableListActivity.actionStart(this);
                 break;
@@ -310,6 +325,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public  void save(){
         try{
+            LitePal.getDatabase();
             UserModel model=new UserModel();
             model.setAge(40);
             model.setName("谢亚龙");
@@ -553,7 +569,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String sql="alter table hs_user add age integer";
         LitePal.getDatabase().execSQL(sql);
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public  void root(){
+        try {
 
+            System.out.println(">]Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
+            if (Build.VERSION.SDK_INT >= 26 && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            }
+            //创建成功后在电脑上看不到，在手机上可以看到，可以在手机上复制到其他目录下电脑就可以看到
+            File fileDB=new File(Environment.getExternalStorageDirectory().getPath()+"/数据库");
+            FileUtils.forceMkdir(fileDB);
+
+            System.out.println(">]="+LitePal.getDatabase().getPath());
+            System.out.println(">]1"+ Environment.getExternalStorageDirectory().getPath());
+
+            File file=new File(LitePal.getDatabase().getPath());
+            FileUtils.copyFile(file,new File(fileDB.getAbsolutePath()+"/xyl.db"));
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void get_root(){
+        if (is_root()){
+            Toast.makeText(this, "已经具有ROOT权限!", Toast.LENGTH_LONG).show();
+        }else{
+            try{
+                System.out.println("正在获取root");
+                Runtime.getRuntime().exec("su");
+            }catch (Exception e){
+                Toast.makeText(this, "获取ROOT权限时出错!", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+    public static boolean is_root() {
+
+        boolean res = false;
+
+        try {
+            if ((!new File("/system/bin/su").exists()) &&
+                    (!new File("/system/xbin/su").exists())) {
+                res = false;
+            } else {
+                res = true;
+            }
+            ;
+        } catch (Exception e) {
+
+        }
+        return res;
+    }
 }
 
 

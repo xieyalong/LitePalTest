@@ -3,7 +3,7 @@
     <!--
 	数据库名称
     -->
-    <dbname value="xyldb" />
+    <dbname value="xyldb.db" />
 
     <!--
 数据库的版本
